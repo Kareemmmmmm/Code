@@ -4,7 +4,9 @@ from turtle import *
 from freegames import line
 
 turns = {'red': 'yellow', 'yellow': 'red'}
-state = {'player': 'yellow', 'rows': [-2] * 14}
+state = {'player': 'yellow', 'rows': [4] * 14}
+turns2 = {'red': 'yellow', 'yellow': 'red'}
+state2 = {'player2': 'yellow', 'rows2': [3] * 14}
 
 
 def grid():
@@ -31,7 +33,7 @@ def tap(x, y):
     if ( x< -350 or 350 < x ) == True:
        None
         
-    else:
+    elif (y > 0) == True:
         player = state['player']
         rows = state['rows']
 
@@ -40,14 +42,28 @@ def tap(x, y):
 
         x = ((x + 200) // 50) * 50 - 175 # (((x) + Where dot is placed relative to clicked row) // width btwn rows) * (width2) - (where dot2) + (slight offset)
         y = count * 50 - 175 #Uses count from above to do same as x
+        up()
+        goto(x, y)
+        dot(40, player)
+        update()
+        rows[row] = count + 1
+        state['player'] = turns[player]
+    elif (y < 0) == True:
+        player2 = state2['player2']
+        rows2 = state2['rows2']
+        
+        row2 = int((x + 200) // 50)
+        count2 = rows2[row2]
 
-    up()
-    goto(x, y)
-    dot(40, player)
-    update()
-
-    rows[row] = count + 1 #Space between each dot in a row
-    state['player'] = turns[player]
+        x = ((x + 200) // 50) * 50 - 175 # (((x) + Where dot is placed relative to clicked row) // width btwn rows) * (width2) - (where dot2) + (slight offset)
+        y = count2 * 50 - 175 #Uses count from above to do same as x
+        up()
+        goto(x, y)
+        dot(40, player2)
+        update()
+        rows2[row2] = count2 - 1 #Space between each dot in a row
+        state2['player2'] = turns2[player2]
+   
 
 
 setup(420, 420, 370, 0)
@@ -55,9 +71,4 @@ hideturtle()
 tracer(False)
 grid()
 onscreenclick(tap)
-done()# -*- coding: utf-8 -*-
-"""
-Created on Fri Nov 25 15:20:43 2022
-
-@author: roanh
-"""
+done()
