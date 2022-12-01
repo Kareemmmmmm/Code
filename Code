@@ -1,6 +1,4 @@
 from turtle import *
-
-
 from freegames import line
 
 turns = {'red': 'yellow', 'yellow': 'red'}
@@ -64,7 +62,16 @@ def tap(x, y):
         rows2[row2] = count2 - 1 #Space between each dot in a row
         state2['player2'] = turns2[player2]
    
-
+def switch_player(state):
+    if state == 1:
+        return 2
+    elif state == 2:
+        return 1
+def switch_player(state2):
+    if state2 == 1:
+        return 2
+    elif state2 == 2:
+        return 1
 
 setup(420, 420, 370, 0)
 hideturtle()
