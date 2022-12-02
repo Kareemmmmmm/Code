@@ -2,8 +2,8 @@ from turtle import *#imports the turtle module with all of its functions
 from freegames import line#imports the freegames module with all of its function
 
 turns = {'red': 'yellow', 'yellow': 'red'}#turns is used to determine the turns of each player
-state = {'player': 'yellow', 'rows': [4] * 14}#Second state value used to set inital placement of circles at different y values
-state2 = {'player2': 'yellow', 'rows2': [3] * 14}#Second state value used to set inital placement of circles at different y values
+state = {'player': 'yellow', 'rows': [4] * 14}#Second state value used to set inital placement of disks at different y values
+state2 = {'player2': 'yellow', 'rows2': [3] * 14}#Second state value used to set inital placement of disks at different y values
 
 
 def grid(): #defines the placement of a visual grid as reference for the players
@@ -16,39 +16,40 @@ def grid(): #defines the placement of a visual grid as reference for the players
                              #x and y values changed to support larger 14*14 board
     line(-350, 0, 350, 0)#new center line that seperates two sides of the board
         
-    for x in range(-325, 350, 50):#gives the area the circle can be (offsets circle position, number of circle lines, width between circles)
+    for x in range(-325, 350, 50):#gives the area the disk can be (offsets disk position, number of disk lines, width between disks)
                                   #x and values changed to support larger 14*14 board
-        for y in range(-275, 300, 50):#(removes circles from bottom, removes from top, width of circles)
+        for y in range(-275, 300, 50):#(removes disks from bottom, removes from top, width of disks)
                                       #x and values changed to support larger 14*14 board
             up()#stops turtle from inserting another shape in the place clicked on
-            goto(x, y)#it makes the turtle draw a circle on the specified coordinates
+            goto(x, y)#it makes the turtle draw a disk on the specified coordinates
             dot(40, 'white')#draws a dot with a with the specified dimensions and colour
 
     update()#updates the value associated with the input of the click on the spaces
 
 
-def tap(x, y):#Draws a red or yellow circle in the tapped rows
-    """Draw red or yellow circle in tapped row."""
+def tap(x, y):#Draws a red or yellow disk in the tapped rows
+    """Draw red or yellow disk in tapped row."""
     
-    if ( x< -350 or 350 < x ) == True:#defines the boundries where a player is able to place their circle
+    if ( x< -350 or 350 < x ) == True:#defines the boundries of the game and where a playter is ahle to place a disk
        None
         
-    elif (y > 0) == True:#function that checks if circle is placed above the line of the grid
-        player = state['player']
-        rows = state['rows']
+    elif (y > 0) == True:#function that checks if disk is placed above the line of the grid
+        player = state['player']#determines the player 
+        rows = state['rows']#determines the row 
 
-        row = int((x + 200) // 50)
-        count = rows[row]
+        row = int((x + 20) // 50)#calculates the x value for each disk placed
+        count = rows[row]#Initializes the row value to calculate for y and other calculations
 
         x = ((x + 200) // 50) * 50 - 175 # (((x) + Where dot is placed relative to clicked row) // width btwn rows) * (width2) - (where dot2) + (slight offset)
         y = count * 50 - 175 #Uses count from above to do same as x
-        up()
-        goto(x, y)
-        dot(40, player)
-        update()
-        rows[row] = count + 1
+        up()#stops turtle from inserting another shape in the place clicked on
+        goto(x, y)#it makes the turtle draw a disk on the specified coordinates
+        dot(40, player)#draws a dot with a with the specified dimensions and colour
+        update()#updates the value associated with the input of the click on the spaces
+        rows[row] = count + 1#Detects when two disk are 
         state['player'] = turns[player]
         state2['player2'] = state['player']
+        
     elif (y < 0) == True:
         player2 = state2['player2']
         rows2 = state2['rows2']
