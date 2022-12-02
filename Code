@@ -48,12 +48,12 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         dot(40, player)#draws a dot with a with the specified colour and the player
         update()#updates the value associated with the input of the click on the spaces
         rows[row] = count + 1#Allows turtle tp draw two disks on top of each of it by 1 y value higher
-        state['player'] = turns[player]#
+        state['player'] = turns[player]#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
         state2['player2'] = state['player']#
         
     elif (y < 0) == True:#function that checks if disk is placed below the line of the grid
         player2 = state2['player2']#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
-        rows2 = state2['rows2']#
+        rows2 = state2['rows2']#Applies the player turn change to both halves of the game board
         
         row2 = int((x + 200) // 50)#calculates the x value for each disk placed
         count2 = rows2[row2]#Initializes the row value to calculate for y and other calculations
@@ -65,8 +65,8 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         dot(40, player2)#draws a dot with a with the specified colour and for the player
         update()#updates the value associated with the input of the click on the spaces
         rows2[row2] = count2 - 1 #Allows turtle tp draw two disks on top of each of it by 1 y value lower
-        state2['player2'] = turns[player2]#
-        state['player'] = state2['player2']#
+        state2['player2'] = turns[player2]#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
+        state['player'] = state2['player2']#Applies the player turn change to both halves of the game board
 
 setup(420, 420, 370, 0)
 hideturtle()
