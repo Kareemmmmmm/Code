@@ -52,8 +52,8 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         state2['player2'] = state['player']#Applies the player turn change to both halves of the game board
         
     elif (y < 0) == True:#function that checks if disk is placed below the line of the grid
-        player2 = state2['player2']
-        rows2 = state2['rows2']
+        player2 = state2['player2']#
+        rows2 = state2['rows2']#
         
         row2 = int((x + 200) // 50)#calculates the x value for each disk placed
         count2 = rows2[row2]#Initializes the row value to calculate for y and other calculations
@@ -68,9 +68,9 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         state2['player2'] = turns[player2]#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
         state['player'] = state2['player2']#Applies the player turn change to both halves of the game board
 
-setup(420, 420, 370, 0)
-hideturtle()
-tracer(False)#
-grid()
-onscreenclick(tap)
-done()
+setup(420, 420, 370, 0)#determines the width and length of the resolution of the game
+hideturtle()#hides the turtle interface
+tracer(False)#Disables all turtle animations and delays
+grid()#determines the column and row positioning of the parameters of tge game
+onscreenclick(tap)#the turtle performs an action where the user clicks
+done()#this starts the loop function
