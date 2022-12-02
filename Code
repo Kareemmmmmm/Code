@@ -30,42 +30,42 @@ def grid(): #defines the placement of a visual grid as reference for the players
 def tap(x, y):#Draws a red or yellow disk in the tapped rows
     """Draw red or yellow disk in tapped row."""
     
-    if ( x< -350 or 350 < x ) == True:#defines the boundries of the game and where a playter is ahle to place a disk
+    if ( x< -350 or 350 < x ) == True:#defines the boundries of the game and where a player is able to place a disk
        None
         
     elif (y > 0) == True:#function that checks if disk is placed above the line of the grid
-        player = state['player']#determines the player 
-        rows = state['rows']#determines the row 
-
-        row = int((x + 20) // 50)#calculates the x value for each disk placed
+        player = state['player']# 
+        rows = state['rows']#
+        
+        row = int((x + 200) // 50)#calculates the x value for each disk placed
         count = rows[row]#Initializes the row value to calculate for y and other calculations
 
         x = ((x + 200) // 50) * 50 - 175 # (((x) + Where dot is placed relative to clicked row) // width btwn rows) * (width2) - (where dot2) + (slight offset)
         y = count * 50 - 175 #Uses count from above to do same as x
         up()#stops turtle from inserting another shape in the place clicked on
         goto(x, y)#it makes the turtle draw a disk on the specified coordinates
-        dot(40, player)#draws a dot with a with the specified dimensions and colour
+        dot(40, player)#draws a dot with a with the specified dimensions and the for the first player
         update()#updates the value associated with the input of the click on the spaces
-        rows[row] = count + 1#Detects when two disk are 
-        state['player'] = turns[player]
-        state2['player2'] = state['player']
+        rows[row] = count + 1#Allows turtle tp draw two disks on top of each of it by 1 y value higher
+        state['player'] = turns[player]#
+        state2['player2'] = state['player']#
         
-    elif (y < 0) == True:
-        player2 = state2['player2']
-        rows2 = state2['rows2']
+    elif (y < 0) == True:#function that checks if disk is placed below the line of the grid
+        player2 = state2['player2']#
+        rows2 = state2['rows2']#
         
-        row2 = int((x + 200) // 50)
-        count2 = rows2[row2]
+        row2 = int((x + 200) // 50)#calculates the x value for each disk placed
+        count2 = rows2[row2]#Initializes the row value to calculate for y and other calculations
 
         x = ((x + 200) // 50) * 50 - 175 # (((x) + Where dot is placed relative to clicked row) // width btwn rows) * (width2) - (where dot2) + (slight offset)
         y = count2 * 50 - 175 #Uses count from above to do same as x
-        up()
-        goto(x, y)
-        dot(40, player2)
-        update()
-        rows2[row2] = count2 - 1 #Space between each dot in a row
-        state2['player2'] = turns[player2]
-        state['player'] = state2['player2']
+        up()#stops turtle from inserting another shape in the place clicked on
+        goto(x, y)#it makes the turtle draw a disk on the specified coordinates
+        dot(40, player2)#draws a dot with a with the specified dimensions and for the second player
+        update()#updates the value associated with the input of the click on the spaces
+        rows2[row2] = count2 - 1 #Allows turtle tp draw two disks on top of each of it by 1 y value lower
+        state2['player2'] = turns[player2]#
+        state['player'] = state2['player2']#
        
 setup(420, 420, 370, 0)
 hideturtle()
