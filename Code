@@ -1,8 +1,8 @@
-from turtle import *
-from freegames import line
+from turtle import *#imports the turtle module with all of its functions
+from freegames import line#imports the freegames module with all of its function
 
-turns = {'red': 'yellow', 'yellow': 'red'}
-state = {'player': 'yellow', 'rows': [4] * 14}
+turns = {'red': 'yellow', 'yellow': 'red'}#turns is used to determine the turns of each player
+state = {'player': 'yellow', 'rows': [4] * 14}#Second state value used to set inital placement of circles at different y values
 state2 = {'player2': 'yellow', 'rows2': [3] * 14}#Second state value used to set inital placement of circles at different y values
 
 
@@ -17,21 +17,23 @@ def grid(): #defines the placement of a visual grid as reference for the players
     line(-350, 0, 350, 0)#new center line that seperates two sides of the board
         
     for x in range(-325, 350, 50):#gives the area the circle can be (offsets circle position, number of circle lines, width between circles)
+                                  #x and values changed to support larger 14*14 board
         for y in range(-275, 300, 50):#(removes circles from bottom, removes from top, width of circles)
-            up()
-            goto(x, y)
-            dot(40, 'white')
+                                      #x and values changed to support larger 14*14 board
+            up()#stops turtle from inserting another shape in the place clicked on
+            goto(x, y)#it makes the turtle draw a circle on the specified coordinates
+            dot(40, 'white')#draws a dot with a with the specified dimensions and colour
 
-    update()
+    update()#updates the value associated with the input of the click on the spaces
 
 
-def tap(x, y):
+def tap(x, y):#Draws a red or yellow circle in the tapped rows
     """Draw red or yellow circle in tapped row."""
     
-    if ( x< -350 or 350 < x ) == True:
+    if ( x< -350 or 350 < x ) == True:#defines the boundries where a player is able to place their circle
        None
         
-    elif (y > 0) == True:
+    elif (y > 0) == True:#function that checks if circle is placed above the line of the grid
         player = state['player']
         rows = state['rows']
 
@@ -69,4 +71,4 @@ hideturtle()
 tracer(False)
 grid()
 onscreenclick(tap)
-done(
+done()
