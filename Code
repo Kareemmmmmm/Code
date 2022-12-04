@@ -5,6 +5,67 @@ turns = {'red': 'yellow', 'yellow': 'red'}#turns is used to determine the turns 
 state = {'player': 'yellow', 'rows': [4] * 14}#Second state value used to set inital placement of disks at different y values
 state2 = {'player2': 'yellow', 'rows2': [3] * 14}#Second state value used to set inital placement of disks at different y values
 
+datalist=[]
+boardcoords=[]
+for rows in range(12):
+    row=[]
+    for col in range(14):
+        row.append(1)
+    datalist.append(row)
+for y in range(-275, 300, 50):
+    row=[]
+    for x in range(-325, 350, 50):
+        row.append((x,y))
+    boardcoords.append(row)
+
+def winner(plrc):
+    color('white')
+    goto(-100,-50)
+    color(plrc)
+    width(10)
+    fillcolor('white')
+    begin_fill()
+    for drrc in range(2):
+        forward(200)
+        left(90)
+        forward(100)
+        left(90)
+    end_fill()
+    style=('Arial',20,'bold')
+    dsplclr=plrc.upper()
+    penup()
+    goto(0,0)
+    color('black')
+    write((dsplclr+" WON!"),font=style,align='center')
+    exitonclick()
+
+    
+def checkline(plrc):
+    for y in range(len(datalist)):
+        for x in range(len(datalist[y])):
+            if datalist[y][x]!=1:
+                if y<9 and x<11:
+                    if (datalist[y][x]==datalist[y+1][x+1] and datalist[y][x]==datalist[y+2][x+2] and datalist[y][x]==datalist[y+3][x+3]):
+                        return winner(plrc)
+                if y<9:
+                    if (datalist[y][x]==datalist[y+1][x] and datalist[y][x]==datalist[y+2][x] and datalist[y][x]==datalist[y+3][x]):
+                        return winner(plrc)
+                if x<11:   
+                    if(datalist[y][x]==datalist[y][x+1] and datalist[y][x]==datalist[y][x+2] and datalist[y][x]==datalist[y][x+3]):
+                        return winner(plrc)
+                if y>4 and x>4:
+                    if (datalist[y][x]==datalist[y+1][x-1] and datalist[y][x]==datalist[y+2][x-2] and datalist[y][x]==datalist[y+3][x-3]):
+                        return winner(plrc)
+
+def pieceplace(xcoor,ycoor,plrc):
+    for y in range(len(boardcoords)):
+        for x in range(len(boardcoords[y])):
+            if boardcoords[y][x]==(xcoor,ycoor):
+                if plrc=='red':
+                    datalist[y][x]+=1
+                if plrc=='yellow':
+                    datalist[y][x]-=1
+                checkline(plrc)
 
 def grid(): #defines the placement of a visual grid as reference for the players
     """Draw Connect Four grid."""
@@ -30,7 +91,7 @@ def grid(): #defines the placement of a visual grid as reference for the players
 def tap(x, y):#Draws a red or yellow disk in the tapped rows
     """Draw red or yellow disk in tapped row."""
     
-    if ( x< -350 or 350 < x ) == True:#defines the boundries of the game and where a player is able to place a disk
+    if (( x< -350 or 350 < x ) == True):#defines the boundries of the game and where a player is able to place a disk
        None
 
         
@@ -48,6 +109,7 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         dot(40, player)#draws a dot with a with the specified colour and the player
         update()#updates the value associated with the input of the click on the spaces
         rows[row] = count + 1#Allows turtle tp draw two disks on top of each of it by 1 y value higher
+        pieceplace(x,y,player)
         state['player'] = turns[player]#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
         state2['player2'] = state['player']#Applies the player turn change to both halves of the game board
         
@@ -65,10 +127,11 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         dot(40, player2)#draws a dot with a with the specified colour and for the player
         update()#updates the value associated with the input of the click on the spaces
         rows2[row2] = count2 - 1 #Allows turtle tp draw two disks on top of each of it by 1 y value lower
+        pieceplace(x,y,player2)
         state2['player2'] = turns[player2]#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
         state['player'] = state2['player2']#Applies the player turn change to both halves of the game board
 
-setup(420, 420, 370, 0)#determines the width and length of the resolution of the game
+setup(820, 720, 370, 0)#determines the width and length of the resolution of the game
 hideturtle()#hides the turtle interface
 tracer(False)#Disables all turtle animations and delays
 grid()#determines the column and row positioning of the parameters of tge game
