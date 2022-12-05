@@ -90,7 +90,6 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
     
     if (( x< -350 or 350 < x ) == True):#defines the boundries of the game and where a player is able to place a disk
        None
-
         
     elif (y > 0) == True:#function that checks if disk is placed above the line of the grid
         player = state['player']#initializes player turn values
@@ -98,13 +97,14 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         
         row = int((x + 200) // 50)#calculates the x value for each disk placed
         count = rows[row]#Initializes the row value to calculate for y and other calculations
-
         x = ((x + 200) // 50) * 50 - 175 # (((x) + Where dot is placed relative to clicked row) // width btwn rows) * (width2) - (where dot2) + (slight offset (combined with "where dot2"))
         y = count * 50 - 175 #Uses count from above to do same as x
+        
         up()#stops turtle from inserting another shape in the place clicked on
         goto(x, y)#it makes the turtle draw a disk on the specified coordinates
         dot(40, player)#draws a dot with a with the specified colour and the player
         update()#updates the value associated with the input of the click on the spaces
+        
         rows[row] = count + 1#Allows turtle tp draw two disks on top of each of it by 1 y value higher
         pieceplace(x,y,player) #records postion of the piece that was just played in the datalist
         state['player'] = turns[player]#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
@@ -116,12 +116,13 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         
         row2 = int((x + 200) // 50)#calculates the x value for each disk placed
         count2 = rows2[row2]#Initializes the row value to calculate for y and other calculations
-
         x = ((x + 200) // 50) * 50 - 175 # (((x) + Where dot is placed relative to clicked row) // width btwn rows) * (width2) - (where dot2) + (slight offset)
         y = count2 * 50 - 175 #Uses count from above to do same as x
+        
         up()#stops turtle from inserting another shape in the place clicked on
         goto(x, y)#it makes the turtle draw a disk on the specified coordinates
         dot(40, player2)#draws a dot with a with the specified colour and for the player
+        
         update()#updates the value associated with the input of the click on the spaces
         rows2[row2] = count2 - 1 #Allows turtle tp draw two disks on top of each of it by 1 y value lower
         pieceplace(x,y,player2) #records postion of the piece that was just played in the datalist
