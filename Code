@@ -5,6 +5,26 @@ turns = {'red': 'yellow', 'yellow': 'red'}#turns is used to determine the turns 
 state = {'player': 'yellow', 'rows': [4] * 14}#Second state value used to set inital placement of disks at different y values
 state2 = {'player2': 'yellow', 'rows2': [3] * 14}#Second state value used to set inital placement of disks at different y values
 
+def grid(): #defines the placement of a visual grid as reference for the players
+    """Draw Connect Four grid."""
+    bgcolor('light blue')#intializes colour of grid
+
+    for x in range(-350, 400, 50):#gives the area the lines can be (lengh from left, lengh from right, space between)
+                                  #x and values changed to support larger 14*14 board
+        line(x, -300, x, 300)#gives the lengh of each of the lines(lengh going up, lengh going down)
+                             #x and y values changed to support larger 14*14 board
+    line(-350, 0, 350, 0)#new center line that seperates two sides of the board
+        
+    for x in range(-325, 350, 50):#gives the area the disk can be (offsets disk position, number of disk lines, width between disks)
+                                  #x and values changed to support larger 14*14 board
+        for y in range(-275, 300, 50):#(removes disks from bottom, removes from top, width of disks)
+                                      #x and values changed to support larger 14*14 board
+            up()#stops turtle from inserting another shape in the place clicked on
+            goto(x, y)#it makes the turtle draw a disk on the specified coordinates
+            dot(40, 'white')#draws a dot with a with the specified dimensions and colour
+
+    update()#updates the value associated with the input of the click on the spaces
+
 datalist=[] #empty list which will contain information on each position of the grid
 boardcoords=[] #empty list which will contain coordinates for every spot there can be a piece
 for rows in range(12): #goes through the 12 horizontal rows of the grid
@@ -64,27 +84,6 @@ def pieceplace(xcoor,ycoor,plrc): #defines funtion which will change the value o
                 if plrc=='yellow': #detects colour of the piece that was just placed
                     datalist[y][x]-=1 #changes the value of the position in the data list corrisponding to the onscreen coordinates to a 0 to represent a yellow piece in now in that position.
                 checkline(plrc) #checks if a line of 4 has been made after the last move
-
-def grid(): #defines the placement of a visual grid as reference for the players
-    """Draw Connect Four grid."""
-    bgcolor('light blue')#intializes colour of grid
-
-    for x in range(-350, 400, 50):#gives the area the lines can be (lengh from left, lengh from right, space between)
-                                  #x and values changed to support larger 14*14 board
-        line(x, -300, x, 300)#gives the lengh of each of the lines(lengh going up, lengh going down)
-                             #x and y values changed to support larger 14*14 board
-    line(-350, 0, 350, 0)#new center line that seperates two sides of the board
-        
-    for x in range(-325, 350, 50):#gives the area the disk can be (offsets disk position, number of disk lines, width between disks)
-                                  #x and values changed to support larger 14*14 board
-        for y in range(-275, 300, 50):#(removes disks from bottom, removes from top, width of disks)
-                                      #x and values changed to support larger 14*14 board
-            up()#stops turtle from inserting another shape in the place clicked on
-            goto(x, y)#it makes the turtle draw a disk on the specified coordinates
-            dot(40, 'white')#draws a dot with a with the specified dimensions and colour
-
-    update()#updates the value associated with the input of the click on the spaces
-
 
 def tap(x, y):#Draws a red or yellow disk in the tapped rows
     """Draw red or yellow disk in tapped row."""
