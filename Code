@@ -93,8 +93,8 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
 
         
     elif (y > 0) == True:#function that checks if disk is placed above the line of the grid
-        player = state['player']# 
-        rows = state['rows']#
+        player = state['player']#initializes player turn values
+        rows = state['rows']#initializes row values
         
         row = int((x + 200) // 50)#calculates the x value for each disk placed
         count = rows[row]#Initializes the row value to calculate for y and other calculations
@@ -111,8 +111,8 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         state2['player2'] = state['player']#Applies the player turn change to both halves of the game board
         
     elif (y < 0) == True:#function that checks if disk is placed below the line of the grid
-        player2 = state2['player2']#
-        rows2 = state2['rows2']#
+        player2 = state2['player2']#initializes player turn values
+        rows2 = state2['rows2']#initializes row values
         
         row2 = int((x + 200) // 50)#calculates the x value for each disk placed
         count2 = rows2[row2]#Initializes the row value to calculate for y and other calculations
