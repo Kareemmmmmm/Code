@@ -25,65 +25,65 @@ def grid(): #defines the placement of a visual grid as reference for the players
 
     update()#updates the value associated with the input of the click on the spaces
 
-datalist=[] #empty list which will contain information on each position of the grid
-boardcoords=[] #empty list which will contain coordinates for every spot there can be a piece
-for rows in range(12): #goes through the 12 horizontal rows of the grid
-    row=[] #empty list which will contain information of the current row being worked on
-    for col in range(14): #goes through the 14 vertical columns of the grid
-        row.append(1) #Puts a 1 in each position. 1 is the neutral state, meaning there is no piece in this position
-    datalist.append(row) #Adds row to list of position information. Final list with all 12 rows simulates a 14 by 12 position board where each value determines if there is no piece (1), a yellow piece (0), or a red piece (2). As the game has just begun, there are no pieces so every value is a one.
-for y in range(-275, 300, 50): #goes through the y-coordinates of every position
-    row=[] #starts a new row of coordinates
-    for x in range(-325, 350, 50): #goes through x-coordinates of every postition
-        row.append((x,y)) #adds coordinates to row
-    boardcoords.append(row) #adds row of coordinates to list of coordinates, where every coordinate has a corrisponding position in the datalist.
+datalist=[] #empty list which will contain information on each position of the grid - JE
+boardcoords=[] #empty list which will contain coordinates for every spot there can be a piece -JE
+for rows in range(12): #goes through the 12 horizontal rows of the grid -JE
+    row=[] #empty list which will contain information of the current row being worked on -JE
+    for col in range(14): #goes through the 14 vertical columns of the grid -JE
+        row.append(1) #Puts a 1 in each position. 1 is the neutral state, meaning there is no piece in this position -JE
+    datalist.append(row) #Adds row to list of position information. Final list with all 12 rows simulates a 14 by 12 position board where each value determines if there is no piece (1), a yellow piece (0), or a red piece (2). As the game has just begun, there are no pieces so every value is a one. -JE
+for y in range(-275, 300, 50): #goes through the y-coordinates of every position -JE
+    row=[] #starts a new row of coordinates -JE
+    for x in range(-325, 350, 50): #goes through x-coordinates of every postition -JE
+        row.append((x,y)) #adds coordinates to row -JE
+    boardcoords.append(row) #adds row of coordinates to list of coordinates, where every coordinate has a corrisponding position in the datalist. -JE
 
-def winner(plrc): #defines function which will tell the payers when someone wins.
-    goto(-150,-50) #brings pen for drawing to coordinate (-100,-50)
-    width(10) #sets drawing width to size 10
-    fillcolor('white') #sets fill colour to white
-    begin_fill() #shapes drawn after this line will be filled with the fill colour
-    for drrc in range(2): #Starts drawing rectangle one half at a time
-        forward(300) #Draws horizontal line with  the magnitude of the width of the rectangle
-        left(90) #pen rotates 90 degrees counter-clockwise
-        forward(100) #Draws vertical line with  the magnitude of the height of the rectangle
-        left(90) #pen rotates 90 degrees counter-clockwise
-    end_fill() # shapes between this line and the beginfill() function will be filled with fill colour
-    style=('Arial',20,'bold') # sets font of text
-    dsplclr=plrc.upper() #takes colour which has just won the game and turns into a string of uppercase letters
-    penup() #tells pen to stop drawing
-    goto(0,0) #brings pen to the center
-    color('black') # sets colour to black so the text will be black
-    write((dsplclr+" WON!"),font=style,align='center') #generates text which says who won
-    exitonclick() #tells the program to close the game after someone clicks. the game is now over.
+def winner(plrc): #defines function which will tell the payers when someone wins. -JE
+    goto(-150,-50) #brings pen for drawing to coordinate (-100,-50) -JE
+    width(10) #sets drawing width to size 10 -JE
+    fillcolor('white') #sets fill colour to white -JE
+    begin_fill() #shapes drawn after this line will be filled with the fill colour -JE
+    for drrc in range(2): #Starts drawing rectangle one half at a time -JE
+        forward(300) #Draws horizontal line with  the magnitude of the width of the rectangle -JE
+        left(90) #pen rotates 90 degrees counter-clockwise -JE
+        forward(100) #Draws vertical line with  the magnitude of the height of the rectangle -JE
+        left(90) #pen rotates 90 degrees counter-clockwise -JE
+    end_fill() # shapes between this line and the beginfill() function will be filled with fill colour -JE
+    style=('Arial',20,'bold') # sets font of text -JE
+    dsplclr=plrc.upper() #takes colour which has just won the game and turns into a string of uppercase letters -JE
+    penup() #tells pen to stop drawing -JE
+    goto(0,0) #brings pen to the center -JE
+    color('black') # sets colour to black so the text will be black -JE
+    write((dsplclr+" WON!"),font=style,align='center') #generates text which says who won -JE
+    exitonclick() #tells the program to close the game after someone clicks. the game is now over. -JE
 
     
-def checkline(plrc): #function which will check if any pieces of the same colour form a line of 4
-    for y in range(len(datalist)): #goes to rows of the simulatied board
-        for x in range(len(datalist[y])): #goes through columns of the simulated board
-            if datalist[y][x]!=1: #everytime the code hits a potion containing a piece, it will check for if it is in a line.
-                if y<9 and x<11: #the first line-check is only valid if the piece is at least 4 spaces from the bottom and right edge.
-                    if (datalist[y][x]==datalist[y+1][x+1] and datalist[y][x]==datalist[y+2][x+2] and datalist[y][x]==datalist[y+3][x+3]): #checks if piece is in a diagonal line going down right
-                        return winner(plrc) #if in a line, calls the function which says who won
-                if y<9: # the next line-check is only valid if the piece is at least 4 spaces from the bottom
-                    if (datalist[y][x]==datalist[y+1][x] and datalist[y][x]==datalist[y+2][x] and datalist[y][x]==datalist[y+3][x]): #checks if piece is in vertical line
-                        return winner(plrc) #if in a line, calls the function which says who won
-                if x<11: # the next line-check is only valid if piece is at least 4 spaces from the right edge
-                    if(datalist[y][x]==datalist[y][x+1] and datalist[y][x]==datalist[y][x+2] and datalist[y][x]==datalist[y][x+3]):#checks if the piece is in a horizontal line
-                        return winner(plrc) #if in a line, calls the function which says who won
-                if y>4 and x>4: #the last line-check is only valid if the piece is 4 spaces from the top and left edge
-                    if (datalist[y][x]==datalist[y+1][x-1] and datalist[y][x]==datalist[y+2][x-2] and datalist[y][x]==datalist[y+3][x-3]): #checks if the piece is in a diagonal line going down left
-                        return winner(plrc) #if in a line, calls the function which says who won
+def checkline(plrc): #function which will check if any pieces of the same colour form a line of 4 -JE
+    for y in range(len(datalist)): #goes to rows of the simulatied board -JE
+        for x in range(len(datalist[y])): #goes through columns of the simulated board -JE
+            if datalist[y][x]!=1: #everytime the code hits a potion containing a piece, it will check for if it is in a line. -JE
+                if y<9 and x<11: #the first line-check is only valid if the piece is at least 4 spaces from the bottom and right edge. -JE
+                    if (datalist[y][x]==datalist[y+1][x+1] and datalist[y][x]==datalist[y+2][x+2] and datalist[y][x]==datalist[y+3][x+3]): #checks if piece is in a diagonal line going down right -JE
+                        return winner(plrc) #if in a line, calls the function which says who won -JE
+                if y<9: # the next line-check is only valid if the piece is at least 4 spaces from the bottom -JE
+                    if (datalist[y][x]==datalist[y+1][x] and datalist[y][x]==datalist[y+2][x] and datalist[y][x]==datalist[y+3][x]): #checks if piece is in vertical line -JE
+                        return winner(plrc) #if in a line, calls the function which says who won -JE
+                if x<11: # the next line-check is only valid if piece is at least 4 spaces from the right edge -JE
+                    if(datalist[y][x]==datalist[y][x+1] and datalist[y][x]==datalist[y][x+2] and datalist[y][x]==datalist[y][x+3]):#checks if the piece is in a horizontal line -JE
+                        return winner(plrc) #if in a line, calls the function which says who won -JE
+                if y>4 and x>4: #the last line-check is only valid if the piece is 4 spaces from the top and left edge -JE
+                    if (datalist[y][x]==datalist[y+1][x-1] and datalist[y][x]==datalist[y+2][x-2] and datalist[y][x]==datalist[y+3][x-3]): #checks if the piece is in a diagonal line going down left -JE
+                        return winner(plrc) #if in a line, calls the function which says who won -JE
 
-def pieceplace(xcoor,ycoor,plrc): #defines funtion which will change the value of the space which just got a piece to represent which colour of piece that postion of the board now holds
-    for y in range(len(boardcoords)): #goes through the y-coordinates of the spaces on the screen
-        for x in range(len(boardcoords[y])): #goes through the y-coordinates of the spaces on the screen
-            if boardcoords[y][x]==(xcoor,ycoor): #detects when the x and y coordinates in the list of coordinates match the coordinates of the piece which was just placed
-                if plrc=='red': #detects colour of the piece that was just placed
-                    datalist[y][x]+=1 #changes the value of the position in the data list corrisponding to the onscreen coordinates to a 2 to represent a red piece in now in that position.
-                if plrc=='yellow': #detects colour of the piece that was just placed
-                    datalist[y][x]-=1 #changes the value of the position in the data list corrisponding to the onscreen coordinates to a 0 to represent a yellow piece in now in that position.
-                checkline(plrc) #checks if a line of 4 has been made after the last move
+def pieceplace(xcoor,ycoor,plrc): #defines funtion which will change the value of the space which just got a piece to represent which colour of piece that postion of the board now holds -JE
+    for y in range(len(boardcoords)): #goes through the y-coordinates of the spaces on the screen -JE
+        for x in range(len(boardcoords[y])): #goes through the y-coordinates of the spaces on the screen -JE
+            if boardcoords[y][x]==(xcoor,ycoor): #detects when the x and y coordinates in the list of coordinates match the coordinates of the piece which was just placed -JE
+                if plrc=='red': #detects colour of the piece that was just placed -JE
+                    datalist[y][x]+=1 #changes the value of the position in the data list corrisponding to the onscreen coordinates to a 2 to represent a red piece in now in that position. -JE
+                if plrc=='yellow': #detects colour of the piece that was just placed -JE
+                    datalist[y][x]-=1 #changes the value of the position in the data list corrisponding to the onscreen coordinates to a 0 to represent a yellow piece in now in that position. -JE
+                checkline(plrc) #checks if a line of 4 has been made after the last move -JE
 
 def tap(x, y):#Draws a red or yellow disk in the tapped rows
     """Draw red or yellow disk in tapped row."""
@@ -106,7 +106,7 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         update()#updates the value associated with the input of the click on the spaces
         
         rows[row] = count + 1#Allows turtle tp draw two disks on top of each of it by 1 y value higher
-        pieceplace(x,y,player) #records postion of the piece that was just played in the datalist
+        pieceplace(x,y,player) #records postion of the piece that was just played in the datalist -JE
         state['player'] = turns[player]#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
         state2['player2'] = state['player']#Applies the player turn change to both halves of the game board
         
@@ -125,7 +125,7 @@ def tap(x, y):#Draws a red or yellow disk in the tapped rows
         
         update()#updates the value associated with the input of the click on the spaces
         rows2[row2] = count2 - 1 #Allows turtle tp draw two disks on top of each of it by 1 y value lower
-        pieceplace(x,y,player2) #records postion of the piece that was just played in the datalist
+        pieceplace(x,y,player2) #records postion of the piece that was just played in the datalist -JE
         state2['player2'] = turns[player2]#Changes the player turn based off of the given player's turn. Erg. Yellow changed to red, Red changed to Yellow
         state['player'] = state2['player2']#Applies the player turn change to both halves of the game board
 
